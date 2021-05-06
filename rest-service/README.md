@@ -1,27 +1,16 @@
 # Building a RESTful Web Service
 
-### 1. What I Build
+## What I Build
 Spring Boot를 사용해서 만든 심플한 RESTful Web Service입니다.
 
-HTTP GET 요청(without query string parameter) 
-
-<code>http://localhost:8080/greeting</code>
-
-HTTP GET 응답 
-
-<code>{"id":1,"content":"Hello, World!"}</code>
+| HTTP GET 요청 | HTTP GET 응답 | 
+|:--------:|:--------:|
+| <code>http://localhost:8080/greeting</code> | <code>{"id":1,"content":"Hello, World!"}</code> | 
+| <code>http://localhost:8080/greeting?name=User</code> | <code>{"id":1,"content":"Hello, User!"}</code> |
 
 
-HTTP GET 요청(with query string parameter) 
 
-<code>http://localhost:8080/greeting?name=User</code>
-
-HTTP GET 응답 
-
-<code>{"id":1,"content":"Hello, User!"}</code>
-
-
-### 2. GreetingController 에 대한 설명
+## GreetingController 소스 살펴보기
 
 ``` java
 package com.example.restservice;
@@ -45,12 +34,12 @@ public class GreetingController {
 }
 ```
 
-<code>@GetMapping</code> : HTTP GET 요청 uri 경로 <code>/greeting</code>와 <code>greeting()</code> method가 매핑되도록 해준다. <code>@RequestMapping(method=GET)</code>와 동일 기능
+| 코드 | 설명 | 
+|:--------:|:--------:|
+| <code>@RestController</code> | JSON을 반환하는 컨트롤러 <br> <code>@Controller</code>와 <code>@ResponseBody</code>를 합친 약어 | 
+| <code>@GetMapping</code> | HTTP Method인 Get 요청을 받을 수 있는 API를 만들어 준다. <br> <code>/greeting</code>을 greeting() 메소드에 매핑되도록 해준다. <br> 이전엔 <code>@RequestMapping(method=RequestMethod.GET)</code>으로 사용되었음 |
+| <code>@RequestParam</code> | 외부에서 API로 넘긴 파라미터을 가져오는 어노테이션 <br> 외부에서 name이란 이름으로 넘긴 파라미터를 greeting() 메소드의 파라미터에 저장 <br>외부 파라미터가 없으면 "World"가 디폴트로 사용된다. |
+| <code>incrementAndGet()</code> | AtomicLong 클래스의 메소드 <br> counter를 +1 증가시키고 변경된 값 리턴 |
 
-<code>@RequestParam</code> : query string parameter인 name이 <code>greeting()</code> method의 name 매개변수에 바인딩된다. query string parameter 값이 없으면 defaultValue인 "World"가 사용된다.
-
-<code>@RestController</code> : <code>@Controller</code>와 <code>@ResponseBody</code>를 포함하는 약어
-
-<code>incrementAndGet()</code> : +1 증가시키고 변경된 값 리턴
 
 
